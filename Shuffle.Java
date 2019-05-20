@@ -1,5 +1,10 @@
-public class Shuffle {
+import java.util.ArrayList;
+
+public class Deck {
     public static void main(String[] args) {
+        int players = 3;
+        String player[][] = new String[players][2];
+        ArrayList<String> shuffled = new ArrayList<String>();
         String[] SUITS = {
                 "Clubs", "Diamonds", "Hearts", "Spades"
         };
@@ -28,7 +33,35 @@ public class Shuffle {
 
         // print shuffled deck
         for (int i = 0; i < n; i++) {
-            System.out.println(deck[i]);
+            shuffled.add(deck[i]);
+        }
+        for(int i = 0; i < players; i++){
+            player[i][0] = shuffled.get(0);
+            player[i][1] = shuffled.get(1);
+            shuffled.remove(0);
+            shuffled.remove(1);
+        }
+        for(int i = 0; i < players; i++){
+            System.out.println("Player " + Integer.toString(i + 1) + ": " + player[i][0] + ", " + player[i][1]);
+        }
+    }
+    private static String getFace(String x){
+        return x.substring(x.indexOf(" ") + 4, x.length());
+    }
+    private static int getValue(String x){
+        String value = x.substring(0, x.indexOf(" "));
+        switch (value){
+            case "Jack":
+                return 11;
+            case "Queen":
+                return 12;
+            case "King":
+                return 13;
+            case "Ace":
+                return 1;
+            default:
+                return Integer.parseInt(value);
+
         }
     }
 }
